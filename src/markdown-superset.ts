@@ -3,12 +3,15 @@ import { ExtraPlugin } from "./extra-plugin";
 import { Previewer } from "./previewer";
 import { Editor } from "./editor";
 
-export class MarkdownSupersetImpl {
-  constructor(Converter: converter, editor: Editor, previewer: Previewer, plugins: Array<ExtraPlugin>) {
-    this.initEditor(element);
+export class MarkdownSuperset {
+  constructor(converter: Converter) {
   }
 
-  private initEditor(element: string) {
+  public static init(converter: Converter): MarkdownSuperset {
+    return new MarkdownSuperset(converter);
+  }
+
+  public installPlugin(plugins: Array<ExtraPlugin>) {
 
   }
 };

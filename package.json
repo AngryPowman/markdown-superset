@@ -1,18 +1,25 @@
 {
   "name": "markdown-superset",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "scripts": {
     "start": "cd ./demo && npm start"
   },
   "repository": {
     "type": "git",
-    "url": "https://git.coding.net/AngryPowman/markdown-superset.git"
+    "url": "https://github.com/AngryPowman/markdown-superset"
   },
-  "author": "",
+  "author": "AngryPowman",
   "license": "ISC",
-  "dependencies": {
-    "ace-builds": "^1.2.2",
-    "concurrently": "^2.2.0"
+  "dependencies": {},
+  "devDependencies": {
+    "del": "^2.2.1",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.2.0",
+    "gulp-minify-css": "^0.3.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^2.0.4",
+    "gulp-shell": "^0.5.2",
+    "gulp-uglify": "^1.5.3"
   }
 }
