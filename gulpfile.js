@@ -7,9 +7,6 @@ var rename = require('gulp-rename');
 var del = require('del');
 var shell = require('gulp-shell')
 
-// var argv = require('yargs').argv;
-
-// gulp.task('default', ['release']);
 gulp.task('release', ['compile', 'compress-js', 'copy-libs']);
 gulp.task('compile', shell.task(['tsc --p ./tsconfig.json']));
 
@@ -43,16 +40,3 @@ gulp.task('compress-js', function () {
 
 gulp.task('copy-libs', function () {
 });
-
-// gulp.task('compress-css', function() {
-//   if (argv.build_version == undefined) {
-//     console.log("You must specify a build version.");
-//     return;
-//   }
-
-//   var output_path = './release/' + argv.build_version + '/css';
-//   del(output_path + '/*');
-//   return gulp.src('www/css/**/*.css')
-//     .pipe(minifyCss())
-//     .pipe(gulp.dest(output_path));
-// });

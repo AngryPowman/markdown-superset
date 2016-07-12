@@ -1,6 +1,9 @@
 ## Overview
 A markdown extension library for supporting more advanced features through plugins way.
 
+## Project status
+**This package is now in the early development stage, not preview or production yet.**
+
 ----
 
 ## Dependencies
