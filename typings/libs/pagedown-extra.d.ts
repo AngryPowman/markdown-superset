@@ -12,19 +12,22 @@ declare namespace Markdown {
   }
 
   var Converter: {
-    new(): Converter;
+    new (): Converter;
   }
 
   export interface Extra {
-    init(converter :Converter, options?: any);
+    init(converter: Converter, options?: any);
   }
 
   var Extra: {
-    init(converter :Converter, options?: any);
+    init(converter: Converter, options?: any);
 
   }
 
 }
 
-declare var MarkdownConverter: Markdown.Converter;
-declare var MarkdownExtra: Markdown.Extra;
+declare namespace Pagedown {
+  type MarkdownConverter = Markdown.Converter;
+  type MarkdownExtra = Markdown.Extra;
+}
+

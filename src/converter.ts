@@ -1,16 +1,11 @@
-import { ExtraPlugin } from "./extra-plugin";
+import { Plugin } from "./plugin";
 
 export class Converter {
-  private _activePlugins: Array<Plugin>;
-  constructor(dom: string, activePlugins?: Array<Plugin>) {
-    this._activePlugins = activePlugins;
-  }
-
-  public registerPlugin(plugin: Plugin) {
-
+  private converter: Pagedown.MarkdownConverter;
+  constructor() {
   }
 
   public makeHtml(text: string): string {
-    return "";
+    return this.converter.makeHtml(text);
   }
 }

@@ -1,20 +1,26 @@
-/// <reference path="typings/globals/jquery/index.d.ts" />
+/// <reference path="typings/index.d.ts" />
 
 import { Converter } from "./src/converter";
-import { ExtraPlugin } from "./src/extra-plugin";
+import { Plugin } from "./src/plugin";
 import { Editor } from "./src/editor";
 import { Previewer } from "./src/previewer";
-import { MarkdownSuperset } from "./src/markdown-superset";
+import { Markdown } from "./src/markdown";
 
-// export const MarkdownSuperset = {
-//   Converter,
-//   Plugin,
-//   Editor,
-//   init(converter: Converter): MarkdownSupersetImpl {
-//     return new MarkdownSupersetImpl(converter);
-//   }
-// };
+export const MarkdownSuperset = {
+  // Converter,
+  // Plugin,
+  // Editor,
+  // Previewer,
+  // Markdown,
+  init(converter: Converter): Markdown {
+    return new Markdown(converter);
+  }
+};
 
-namespace MarkdownSuperset {
 
-}
+
+// export type Converter = Converter;
+// export type Plugin = Plugin;
+// export type Editor = Editor;
+// export type Previewer = Previewer;
+// export type Markdown = Markdown;
