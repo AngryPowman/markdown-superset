@@ -12,7 +12,7 @@ var gutil = require('gulp-util');
 var release_path = './dist';
 var output_path = './output';
 
-gulp.task('release', ['compile', 'uglify']);
+gulp.task('build', ['compile', 'uglify']);
 gulp.task('compile', shell.task([
   'rm -rf ' + output_path + '/*',
   'tsc --p ./tsconfig.json',

@@ -11,20 +11,24 @@ A markdown extension library for supporting more advanced features through plugi
 - ace-editor
 
 ## Installation
-Install the following packages in your project:
+Install via [npm](https://www.npmjs.com/package/github) ![NPM version](https://badge.fury.io/js/github.svg):
 ```
 $ npm install markdown-superset
 ```
 
-Reference all the dependent scripts in your index.html:
+or Install via git clone
 ```
-<script src="node_modules/markdown-superset/dist/libs/pagedown/Markdown.Converter.js"></script>
-<script src="node_modules/markdown-superset/dist/libs/Markdown.Sanitizer.js"></script>
-<script src="node_modules/markdown-superset/dist/libs/ace/ace.js"></script>
-<script src="node_modules/markdown-superset/dist/markdown-superset.min.js"></script>
+$ git clone https://github.com/AngryPowman/markdown-superset.git
+$ cd markdown-superset
+$ npm install
+$ typings install
+$ gulp build
 ```
 
-## Run Demo
+Reference the script in your index.html:
 ```
-npm run demo
+<script src="markdown-superset/dist/markdown-superset.min.js"></script>
 ```
+
+## Declaration File for TypeScript
+Comming soon
