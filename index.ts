@@ -1,26 +1,17 @@
 /// <reference path="typings/index.d.ts" />
 
-import { Converter } from "./src/converter";
-import { Plugin } from "./src/plugin";
-import { Editor } from "./src/editor";
-import { Previewer } from "./src/previewer";
-import { Markdown } from "./src/markdown";
+import { MarkdownParser } from "./src/markdown-parser";
+import { MarkdownExtraPlugin } from "./src/markdown-extra-plugin";
+import { MarkdownEditor } from "./src/markdown-editor";
+import { MarkdownManager } from "./src/markdown-manager";
 
-export const MarkdownSuperset = {
-  // Converter,
-  // Plugin,
-  // Editor,
-  // Previewer,
-  // Markdown,
-  init(converter: Converter): Markdown {
-    return new Markdown(converter);
-  }
-};
+namespace MarkdownSuperset {
+  // export function init(parser: MarkdownParser): MarkdownManager {
+  //   return new MarkdownManager(parser);
+  // }
 
-
-
-// export type Converter = Converter;
-// export type Plugin = Plugin;
-// export type Editor = Editor;
-// export type Previewer = Previewer;
-// export type Markdown = Markdown;
+  export const Parser = MarkdownParser;
+  export const Editor = MarkdownEditor;
+  export const ExtraPlugin = MarkdownExtraPlugin;
+  export const Manager = MarkdownManager;
+}

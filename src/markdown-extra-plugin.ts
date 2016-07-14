@@ -1,4 +1,4 @@
-export class Plugin {
+export class MarkdownExtraPlugin {
   constructor(name: string) {
   }
 }

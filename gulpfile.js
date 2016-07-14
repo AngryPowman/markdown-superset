@@ -8,18 +8,19 @@ var del = require('del');
 var shell = require('gulp-shell')
 var gulpCopy = require('gulp-copy');
 var gutil = require('gulp-util');
+var babel = require('gulp-babel');
 
 var release_path = './dist';
 var output_path = './output';
 
-gulp.task('build', ['compile', 'uglify']);
+gulp.task('build', ['compile', 'uglify', 'copy-to-demo']);
 gulp.task('compile', shell.task([
   'rm -rf ' + output_path + '/*',
   'tsc --p ./tsconfig.json',
   'cp -R ./src/libs ' + output_path + '/',
 ]));
 
-gulp.task('uglify', function () {
+gulp.task('uglify', ['compile'], function () {
   var options = {
     mangle: true,
     compress: {
@@ -29,8 +30,8 @@ gulp.task('uglify', function () {
       booleans: true,
       unused: true,
       if_return: true,
-      join_vars: true,
-      warnings: true,
+      join_vars: false,
+      warnings: false,
       unsafe: false,
       drop_console: true
     }
@@ -40,19 +41,29 @@ gulp.task('uglify', function () {
 
   return gulp.src(
     [
-      // output_path + '/libs/ace-builds/src-noconflict/ace.js',
-      // output_path + '/libs/pagedown/Markdown.Converter.js',
-      // output_path + '/libs/pagedown/Markdown.Sanitizer.js',
-      output_path + '/index.js',
-      output_path + '/src/**/*.js'
+      output_path + '/libs/ace-builds/src-noconflict/ace.js',
+      output_path + '/libs/pagedown/Markdown.Converter.js',
+      output_path + '/libs/pagedown/Markdown.Sanitizer.js',
+      output_path + '/src/**/*.js',
+      output_path + '/index.js'
     ])
+
     .pipe(concat('markdown-superset.js'))
     .pipe(gulp.dest(release_path))
-    .pipe(gulp.dest('./demo/markdown-superset/dist')) // copy to demo
+
     .pipe(concat('markdown-superset.min.js'))
+    .pipe(babel({
+      presets: ['es2015']
+    }))
     .pipe(uglify(options))
     .pipe(gulp.dest(release_path))
-    .pipe(gulp.dest('./demo/markdown-superset/dist')) // copy to demo
+});
 
-    ;
+gulp.task('copy-to-demo', ['compile', 'uglify'], function () {
+  del('./demo/markdown-superset/*');
+  return gulp.src([
+    release_path + '/markdown-superset.js',
+    release_path + '/markdown-superset.min.js',
+  ])
+    .pipe(gulp.dest('./demo/markdown-superset')) // copy to demo
 });

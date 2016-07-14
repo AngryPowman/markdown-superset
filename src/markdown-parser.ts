@@ -1,6 +1,4 @@
-import { Plugin } from "./plugin";
-
-export class Converter {
+export class MarkdownParser {
   private converter: Pagedown.MarkdownConverter;
   constructor() {
   }
