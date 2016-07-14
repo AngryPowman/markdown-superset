@@ -41,9 +41,9 @@ gulp.task('uglify', ['compile'], function () {
 
   return gulp.src(
     [
-      // output_path + '/libs/ace-builds/src-noconflict/ace.js',
-      // output_path + '/libs/pagedown/Markdown.Converter.js',
-      // output_path + '/libs/pagedown/Markdown.Sanitizer.js',
+      output_path + '/libs/ace-builds/src-noconflict/ace.js',
+      output_path + '/libs/pagedown/Markdown.Converter.js',
+      output_path + '/libs/pagedown/Markdown.Sanitizer.js',
       output_path + '/src/**/*.js',
       output_path + '/index.js'
     ])
@@ -60,9 +60,10 @@ gulp.task('uglify', ['compile'], function () {
 
 gulp.task('copy-to-demo', ['compile', 'uglify'], function () {
   del('./demo/markdown-superset/*');
-  return gulp.src([
-    release_path + '/markdown-superset.js',
-    release_path + '/markdown-superset.min.js',
-  ])
+  return gulp.src(
+    [
+      release_path + '/markdown-superset.js',
+      release_path + '/markdown-superset.min.js'
+    ])
     .pipe(gulp.dest('./demo/markdown-superset')) // copy to demo
 });
