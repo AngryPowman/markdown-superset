@@ -41,20 +41,19 @@ gulp.task('uglify', ['compile'], function () {
 
   return gulp.src(
     [
-      output_path + '/libs/ace-builds/src-noconflict/ace.js',
-      output_path + '/libs/pagedown/Markdown.Converter.js',
-      output_path + '/libs/pagedown/Markdown.Sanitizer.js',
+      // output_path + '/libs/ace-builds/src-noconflict/ace.js',
+      // output_path + '/libs/pagedown/Markdown.Converter.js',
+      // output_path + '/libs/pagedown/Markdown.Sanitizer.js',
       output_path + '/src/**/*.js',
       output_path + '/index.js'
     ])
-
+    // .pipe(babel({
+    //   presets: ['es2015']
+    // }))
     .pipe(concat('markdown-superset.js'))
     .pipe(gulp.dest(release_path))
 
     .pipe(concat('markdown-superset.min.js'))
-    .pipe(babel({
-      presets: ['es2015']
-    }))
     .pipe(uglify(options))
     .pipe(gulp.dest(release_path))
 });
