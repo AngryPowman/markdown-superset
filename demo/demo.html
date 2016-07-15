@@ -4,14 +4,19 @@
   <title>Markdown Superset Demo</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <script src="markdown-superset/markdown-superset.js"></script>
+  <!--<script src="../node_modules/requirejs/require.js"></script>-->
 
 </head>
 <!-- 3. Display the application -->
 
 <body>
-  <div id="preview"> hello editor</div>
+  <div id="preview">hello editor</div>
+
+  <script>
+    var m = new MarkdownSuperset.Parser();
+    console.log(m.makeHtml("<b>Hello World</b>"));
+  </script>
 </body>
 
 </html>

@@ -1,21 +1,22 @@
-import { MarkdownParser } from "./markdown-parser";
-import { MarkdownExtraPlugin } from "./markdown-extra-plugin";
+module MarkdownSuperset {
 
-export class MarkdownManager {
-  private _activePlugins: Array<MarkdownExtraPlugin>;
+  export class MarkdownManager {
+    private _activePlugins: Array<MarkdownExtraPlugin>;
 
-  constructor(parser: MarkdownParser) {
-  }
-
-  public registerPlugin(plugin: MarkdownExtraPlugin) {
-    if (!this._activePlugins.indexOf(plugin)) {
-      this._activePlugins.push(plugin);
+    constructor(parser: MarkdownParser) {
     }
-  }
 
-  public registerPlugins(plugins: Array<MarkdownExtraPlugin>) {
+    public registerPlugin(plugin: MarkdownExtraPlugin) {
+      if (!this._activePlugins.indexOf(plugin)) {
+        this._activePlugins.push(plugin);
+      }
+    }
 
-  }
-};
+    public registerPlugins(plugins: Array<MarkdownExtraPlugin>) {
 
+    }
+  };
+
+  export const Parser = MarkdownParser;
+}
 

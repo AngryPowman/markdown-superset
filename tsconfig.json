@@ -1,21 +1,24 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "umd",
+    "module": "amd",
     "outDir": "./output",
+    "outFile": "./output/all.js",
     "moduleResolution": "node",
     "sourceMap": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
+    "removeComments": true,
     "noImplicitAny": false,
     "noEmitHelpers": true,
     "declaration": true,
-    "declarationDir": "./output/typings"
+    "pretty": true
+    // "declarationDir": "./output/typings"
   },
   "exclude": [
     "demo",
     "dist",
+    "output",
     "node_modules",
     "typings",
     "src/libs"

@@ -14,6 +14,8 @@ var release_path = './dist';
 var output_path = './output';
 
 gulp.task('build', ['compile', 'uglify', 'copy-to-demo']);
+gulp.task('build-no-uglify', ['compile', 'copy-to-demo']);
+
 gulp.task('compile', shell.task([
   'rm -rf ' + output_path + '/*',
   'tsc --p ./tsconfig.json',
@@ -41,10 +43,11 @@ gulp.task('uglify', ['compile'], function () {
 
   return gulp.src(
     [
-      output_path + '/libs/ace-builds/src-noconflict/ace.js',
+      // output_path + '/libs/ace-builds/src-noconflict/ace.js',
       output_path + '/libs/pagedown/Markdown.Converter.js',
       output_path + '/libs/pagedown/Markdown.Sanitizer.js',
-      output_path + '/src/**/*.js',
+      output_path + '/all.js',
+      // output_path + '/src/**/*.js',
       output_path + '/index.js'
     ])
     // .pipe(babel({
