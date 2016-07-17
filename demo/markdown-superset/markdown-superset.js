@@ -1510,12 +1510,59 @@ else
 
 var MarkdownSuperset;
 (function (MarkdownSuperset) {
+    MarkdownSuperset.Manager = MarkdownSuperset.MarkdownManager;
+})(MarkdownSuperset || (MarkdownSuperset = {}));
+var MarkdownSuperset;
+(function (MarkdownSuperset) {
     var MarkdownEditor = (function () {
         function MarkdownEditor() {
         }
+        MarkdownEditor.prototype.initEditor = function (dom) {
+            if (dom === void 0) { dom = "editor"; }
+            this.aceEditor = ace.edit(dom);
+            this.aceEditor.setTheme("ace/theme/chrome");
+            this.aceEditor.getSession().setMode("ace/mode/markdown");
+            this.aceEditor.setReadOnly(false);
+            this.aceEditor.session.setUseWrapMode(false);
+            this.aceEditor.setScrollSpeed(1);
+            this.aceEditor.setFontSize("16px");
+            this.aceEditor.getSession().on('change', function (e) {
+            });
+        };
+        MarkdownEditor.prototype.setValue = function (val, cursorPos) {
+            this.aceEditor.setValue(val, cursorPos);
+        };
         return MarkdownEditor;
     }());
     MarkdownSuperset.MarkdownEditor = MarkdownEditor;
+    MarkdownSuperset.Editor = MarkdownEditor;
+})(MarkdownSuperset || (MarkdownSuperset = {}));
+var MarkdownSuperset;
+(function (MarkdownSuperset) {
+    var MarkdownExtraPlugin = (function () {
+        function MarkdownExtraPlugin(name) {
+        }
+        return MarkdownExtraPlugin;
+    }());
+    MarkdownSuperset.MarkdownExtraPlugin = MarkdownExtraPlugin;
+    MarkdownSuperset.ExtraPlugin = MarkdownExtraPlugin;
+})(MarkdownSuperset || (MarkdownSuperset = {}));
+var MarkdownSuperset;
+(function (MarkdownSuperset) {
+    var MarkdownManager = (function () {
+        function MarkdownManager(parser) {
+        }
+        MarkdownManager.prototype.registerPlugin = function (plugin) {
+            if (!this._activePlugins.indexOf(plugin)) {
+                this._activePlugins.push(plugin);
+            }
+        };
+        MarkdownManager.prototype.registerPlugins = function (plugins) {
+        };
+        return MarkdownManager;
+    }());
+    MarkdownSuperset.MarkdownManager = MarkdownManager;
+    ;
 })(MarkdownSuperset || (MarkdownSuperset = {}));
 var MarkdownSuperset;
 (function (MarkdownSuperset) {

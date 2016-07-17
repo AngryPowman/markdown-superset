@@ -1,1 +1,1 @@
-/// <reference path="typings/libs/pagedown-extra.d.ts" />
+/// <reference path="typings/index.d.ts" />

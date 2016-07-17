@@ -43,7 +43,7 @@ gulp.task('uglify', ['compile'], function () {
 
   return gulp.src(
     [
-      // output_path + '/libs/ace-builds/src-noconflict/ace.js',
+      // output_path + '/libs/ace-builds/src-min-noconflict/ace.js',
       output_path + '/libs/pagedown/Markdown.Converter.js',
       output_path + '/libs/pagedown/Markdown.Sanitizer.js',
       output_path + '/all.js',

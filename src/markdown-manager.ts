@@ -17,6 +17,5 @@ module MarkdownSuperset {
     }
   };
 
-  export const Parser = MarkdownParser;
 }
 

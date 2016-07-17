@@ -1,0 +1,25 @@
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  padding: 0px;
+}
+
+#editor {
+  height: 100%;
+  width: 50%;
+  border-width: 8px;
+  border: solid chocolate;
+}
+
+#prevewer {
+  height: 100%;
+  width: 50%;
+  border-width: 8px;
+  border: solid chocolate;
+  overflow: scroll;
+}
+
+.ace_editor {
+  /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;*/
+}

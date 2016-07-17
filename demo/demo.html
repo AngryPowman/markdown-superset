@@ -4,18 +4,29 @@
   <title>Markdown Superset Demo</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
   <script src="markdown-superset/markdown-superset.js"></script>
-  <!--<script src="../node_modules/requirejs/require.js"></script>-->
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+
+  <!-- ACE Editor -->
+  <script src="../node_modules/ace-builds/src-min-noconflict/ace.js" charset="utf-8"></script>
+  <script src="demo.js" charset="utf-8"></script>
+
+  <!--<script src="../node_modules/ace-builds/src-min-noconflict/theme-chrome.js"></script>-->
+  <!--<script src="../node_modules/ace-builds/src-min-noconflict/ace.js"></script>-->
 
 </head>
 <!-- 3. Display the application -->
 
 <body>
-  <div id="preview">hello editor</div>
+  <span class="container">
+    <div id="editor"></div>
+    <div id="prevewer"></div>
+  </span>
 
   <script>
-    var m = new MarkdownSuperset.Parser();
-    console.log(m.makeHtml("<b>Hello World</b>"));
+
   </script>
 </body>
 

@@ -1,6 +1,6 @@
 module MarkdownSuperset {
   export class MarkdownParser {
-    private converter: Markdown.Converter = new Markdown.Converter();
+    private converter = new Markdown.Converter();
     constructor() {
     }
 
