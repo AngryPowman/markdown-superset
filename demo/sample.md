@@ -24,12 +24,21 @@ Examples
 
 * Sequence Diagram
 ```
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
+```
 sequenceDiagram
     participant 法老之鹰
     participant 天使
     法老之鹰->>天使: 天降正义！
     天使-->>法老之鹰: 英雄不朽！
 ```
+
 
 * Code Highlighting
 

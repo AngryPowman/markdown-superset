@@ -1357,16 +1357,38 @@ var MarkdownSuperset;
     var MarkdownPluginManager = (function () {
         function MarkdownPluginManager() {
         }
-        MarkdownPluginManager.initPlugins = function (plugins) {
+        MarkdownPluginManager.initPlugins = function (plugins, configs) {
+            if (configs && (plugins.length !== configs.length)) {
+                return false;
+            }
             this.plugins = plugins;
+            if (configs) {
+                for (var i = 0; i < this.plugins.length; ++i) {
+                    this.plugins[i].setConfig(configs[i]);
+                }
+            }
+            return true;
         };
-        MarkdownPluginManager.registerPlugin = function (plugin) {
+        MarkdownPluginManager.registerPlugin = function (plugin, config) {
             if (this.isPluginExists(plugin)) {
                 return;
             }
+            if (config) {
+                plugin.setConfig(config);
+            }
             this.plugins.push(plugin);
         };
-        MarkdownPluginManager.process = function (markdown) {
+        MarkdownPluginManager.initializePlugins = function () {
+            this.plugins.forEach(function (plugin) {
+                plugin.initialize();
+            });
+        };
+        MarkdownPluginManager.update = function () {
+            this.plugins.forEach(function (plugin) {
+                plugin.update();
+            });
+        };
+        MarkdownPluginManager.renderProcess = function (markdown) {
             var markdownRendered = markdown;
             this.plugins.forEach(function (plugin) {
                 markdownRendered = plugin.render(markdownRendered);
@@ -1402,27 +1424,22 @@ var MarkdownSuperset;
                 smartypants: true
             });
             mermaid.initialize({
-                startOnLoad: true,
-                flowchart: {
-                    useMaxWidth: false,
-                    htmlLabels: true
-                },
-                sequenceDiagram: {
-                    useMaxWidth: false,
-                    bottomMarginAdj: 50
-                }
+                startOnLoad: false
             });
+            MarkdownSuperset.MarkdownPluginManager.initializePlugins();
             this.overridingRenderer();
             this.initParser();
         }
-        MarkdownRenderer.prototype.render = function (text) {
-            return marked(text);
+        MarkdownRenderer.prototype.render = function (makrdown) {
+            return marked(makrdown);
         };
         MarkdownRenderer.prototype.update = function () {
-            mermaid.init({}, ".mermaid");
-            $('pre code').each(function (i, block) {
-                hljs.highlightBlock(block);
-            });
+            if (this.renderer.options.highlight) {
+                $('pre code').each(function (i, block) {
+                    hljs.highlightBlock(block);
+                });
+            }
+            MarkdownSuperset.MarkdownPluginManager.update();
         };
         MarkdownRenderer.prototype.overridingRenderer = function () {
             this.extendRenderer("ms-code", "code", function (token) {
@@ -1454,7 +1471,7 @@ var MarkdownSuperset;
                 if (!language) {
                     var diagramPlugin = new MarkdownSuperset.PluginDiagram();
                     if (diagramPlugin.tryParse(code) && MarkdownSuperset.MarkdownPluginManager.isPluginExists(diagramPlugin)) {
-                        return diagramPlugin.renderDiagram(code);
+                        return diagramPlugin.codeRender(code);
                     }
                 }
                 if (_this.renderer.options.highlight) {
@@ -1463,18 +1480,22 @@ var MarkdownSuperset;
                         escaped = true;
                         code = out;
                     }
+                    if (!language) {
+                        return [
+                            '<pre class="hljs"><code>',
+                            (escaped ? code : _this.escape(code, true)),
+                            '\n</code></pre>\n'].join("");
+                    }
+                    return [
+                        '<pre class="hljs"><code class="',
+                        _this.renderer.options.langPrefix, _this.escape(language, true),
+                        '">',
+                        (escaped ? code : _this.escape(code, true)),
+                        '\n</code></pre>\n'].join("");
                 }
-                if (!language) {
-                    return '<pre class="hljs"><code>'
-                        + (escaped ? code : _this.escape(code, true))
-                        + '\n</code></pre>';
+                else {
+                    return ['<pre class="hljs"><code>', code, '</code></pre>\n'].join("");
                 }
-                return '<pre class="hljs"><code class="'
-                    + _this.renderer.options.langPrefix
-                    + _this.escape(language, true)
-                    + '">'
-                    + (escaped ? code : _this.escape(code, true))
-                    + '\n</code></pre>\n';
             };
             marked.prototype.constructor.Parser.prototype.parse = function (src) {
                 this.inline = new marked.InlineLexer(src.links, this.options);
@@ -1483,7 +1504,7 @@ var MarkdownSuperset;
                 while (this.next()) {
                     out += this.tok();
                 }
-                return MarkdownSuperset.MarkdownPluginManager.process(out);
+                return MarkdownSuperset.MarkdownPluginManager.renderProcess(out);
             };
         };
         MarkdownRenderer.prototype.escape = function (html, encode) {
@@ -1504,16 +1525,31 @@ var MarkdownSuperset;
     var PluginDiagram = (function () {
         function PluginDiagram() {
         }
+        PluginDiagram.prototype.initialize = function () {
+            mermaid.initialize({
+                startOnLoad: true,
+                flowchart: {
+                    useMaxWidth: false
+                },
+                sequenceDiagram: {
+                    useMaxWidth: false,
+                    bottomMarginAdj: 50
+                }
+            });
+        };
         PluginDiagram.prototype.render = function (markdown) {
             console.log("Rendering with diagram ...");
             return markdown;
         };
-        PluginDiagram.prototype.renderDiagram = function (code) {
+        PluginDiagram.prototype.update = function () {
+            mermaid.init({}, ".mermaid");
+        };
+        PluginDiagram.prototype.codeRender = function (code) {
             console.log("Parsing diagram token in code block ...");
             return '<div class="mermaid">' + code + '</div>';
         };
         PluginDiagram.prototype.tryParse = function (code) {
-            if (code.match(/^sequenceDiagram/) || code.match(/^graph/)) {
+            if (code.match(/^\s*sequenceDiagram/) || code.match(/^\s*graph\s/) || code.match(/^\s*gantt/)) {
                 return true;
             }
             return false;
