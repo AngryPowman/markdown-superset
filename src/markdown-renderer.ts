@@ -29,33 +29,31 @@ module MarkdownSuperset {
       });
 
       mermaid.initialize({
-        startOnLoad: true,
-        flowchart: {
-          useMaxWidth: false,
-          htmlLabels: true
-        },
-        sequenceDiagram: {
-          useMaxWidth: false,
-          bottomMarginAdj: 50
-        }
+        startOnLoad: false
       });
+      MarkdownPluginManager.initializePlugins();
 
       this.overridingRenderer();
       this.initParser();
     }
 
-    public render(text: string): string {
-      return marked(text);
+    public render(makrdown: string): string {
+      return marked(makrdown);
     }
 
     // Call this function after your HTML renderered.
     // Use for updating something need redraw (e.g. Higlighting blocks)
     public update(): void {
+
       // Update highlight blocks
-      $('pre code').each(function (i, block) {
-        hljs.highlightBlock(block);
-      });
-      mermaid.init({}, ".mermaid");
+      if (this.renderer.options.highlight) {
+        $('pre code').each(function (i, block) {
+          hljs.highlightBlock(block);
+        });
+      }
+
+      // Update all plugins 
+      MarkdownPluginManager.update();
     }
 
     // Use for extending GFM token renderer
@@ -94,10 +92,10 @@ module MarkdownSuperset {
         // return codeFunc.apply(this.renderer, [code, language]);
 
         if (!language) {
-          // If code is diagram, render it without highlight
+          // If code is diagram, render it without highlighter
           let diagramPlugin: PluginDiagram = new PluginDiagram();
           if (diagramPlugin.tryParse(code) && MarkdownPluginManager.isPluginExists(diagramPlugin)) {
-            return diagramPlugin.renderDiagram(code);
+            return diagramPlugin.codeRender(code);
           }
         }
 
@@ -108,21 +106,25 @@ module MarkdownSuperset {
             escaped = true;
             code = out;
           }
-        }
 
-        // If not specified highlighting language
-        if (!language) {
-          return '<pre class="hljs"><code>'
-            + (escaped ? code : this.escape(code, true))
-            + '\n</code></pre>';
-        }
+          // If not specified highlighting language
+          if (!language) {
+            return [
+              '<pre class="hljs"><code>',
+              (escaped ? code : this.escape(code, true)),
+              '\n</code></pre>\n'].join("");
+          }
 
-        return '<pre class="hljs"><code class="'
-          + this.renderer.options.langPrefix
-          + this.escape(language, true)
-          + '">'
-          + (escaped ? code : this.escape(code, true))
-          + '\n</code></pre>\n';
+          return [
+            '<pre class="hljs"><code class="',
+            this.renderer.options.langPrefix, this.escape(language, true),
+            '">',
+            (escaped ? code : this.escape(code, true)),
+            '\n</code></pre>\n'].join("");
+
+        } else {
+          return ['<pre class="hljs"><code>', code, '</code></pre>\n'].join("");
+        }
       };
 
       // Lexer hooks
@@ -131,12 +133,14 @@ module MarkdownSuperset {
         this.tokens = src.reverse();
 
         let out = '';
+
+        // Parsing with GFM parser
         while (this.next()) {
           out += this.tok();
         }
 
-        // Rendering by plugins
-        return MarkdownPluginManager.process(out);
+        // Render by plugins
+        return MarkdownPluginManager.renderProcess(out);
       };
     }
 
