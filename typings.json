@@ -2,6 +2,8 @@
   "name": "markdown-superset",
   "dependencies": {},
   "globalDependencies": {
-    "jquery": "registry:dt/jquery#1.10.0+20160704162008"
+    "highlightjs": "registry:dt/highlightjs#9.1.0+20160317120654",
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
+    "marked": "registry:dt/marked#0.0.0+20160325085301"
   }
 }

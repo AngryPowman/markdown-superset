@@ -1,8 +1,7 @@
 module MarkdownSuperset {
-  export class MarkdownExtraPlugin {
-    constructor(name: string) {
-    }
+  export interface MarkdownExtraPlugin {
+    render(markdown: string): string;
   }
 
-  export const ExtraPlugin = MarkdownExtraPlugin;
+  // export const ExtraPlugin = MarkdownExtraPlugin;
 }

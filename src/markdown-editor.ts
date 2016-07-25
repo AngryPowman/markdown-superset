@@ -22,6 +22,10 @@ module MarkdownSuperset {
     public setValue(val: string, cursorPos: number) {
       this.aceEditor.setValue(val, cursorPos);
     }
+
+    public getValue(): string {
+      return this.aceEditor.getValue();
+    }
   }
 
   export const Editor = MarkdownEditor;

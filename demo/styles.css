@@ -12,12 +12,14 @@
   border: solid chocolate;
 }
 
-#prevewer {
+#previewer {
   height: 100%;
   width: 50%;
   border-width: 8px;
   border: solid chocolate;
   overflow: scroll;
+  padding-left: 6px;
+  font-family: sans-serif;
 }
 
 .ace_editor {

@@ -1,3 +1,7 @@
 module MarkdownSuperset {
-  export const Manager = MarkdownManager;
+  let ExtraPlugins: any = {
+    Diagram: undefined
+  };
+
+  export const Plugins = ExtraPlugins;
 }

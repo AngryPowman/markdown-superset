@@ -1,23 +1,25 @@
 
 $(document).ready(function () {
   console.log("ready!");
-  var m = new MarkdownSuperset.Parser();
+  var renderer = new MarkdownSuperset.Renderer();
   var editor = new MarkdownSuperset.Editor();
   editor.initEditor();
 
+  MarkdownSuperset.MarkdownPluginManager.initPlugins([
+    new MarkdownSuperset.PluginDiagram()
+  ]);
+
   $.get("sample.md", function (data) {
-    // $(".result").html(data);
     editor.setValue(data, -1);
-    $("#prevewer").html(m.makeHtml(data));//m.makeHtml(data)
+    $("#previewer").html(renderer.render(data));
   });
 
-  $('').on('scroll', function () {
-    $('#prevewer').scrollTop($(this).scrollTop());
+  editor.aceEditor.getSession().on('change', (e) => {
+    $("#previewer").html(renderer.render(editor.getValue()));
+    renderer.update();
   });
 
   editor.aceEditor.getSession().on('changeScrollTop', function (scroll) {
-    $('#prevewer').scrollTop(scroll);
+    $('#previewer').scrollTop(scroll);
   });
-
-  // console.log(m.makeHtml("<b>Hello World</b>"));
 });
