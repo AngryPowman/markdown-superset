@@ -23,8 +23,17 @@ function throttle(fn, threshhold, scope) {
 
 $(document).ready(function () {
   console.log("ready!");
-  var editor = new MarkdownSuperset.Editor();
-  editor.initEditor();
+  // var editor = new MarkdownSuperset.Editor();
+  // editor.initEditor();
+
+  var editor = ace.edit("editor");
+  document.getElementById('editor').style.fontSize = '14px';
+
+  editor.setTheme("ace/theme/github");
+  editor.session.setMode("ace/mode/markdown");
+  editor.setReadOnly(false);
+  editor.session.setUseWrapMode(false);
+  editor.setScrollSpeed(1.3);
 
   MarkdownSuperset.MarkdownPluginManager.initPlugins([
     new MarkdownSuperset.PluginDiagram(),
@@ -38,15 +47,16 @@ $(document).ready(function () {
     $("#previewer").html(renderer.render(data));
   });
 
-  editor.aceEditor.getSession().on('change',
+  editor.session.on('change',
     // throttling every function calls
-    throttle(function () {
-      $("#previewer").html(renderer.render(editor.getValue()));
-      renderer.update();
-    }, 100)
+    throttle(
+      function () {
+        $("#previewer").html(renderer.render(editor.getValue()));
+        renderer.update();
+      }, 100)
   );
 
-  editor.aceEditor.getSession().on('changeScrollTop', function (scroll) {
+  editor.session.on('changeScrollTop', function (scroll) {
     $('#previewer').scrollTop(scroll);
   });
 });

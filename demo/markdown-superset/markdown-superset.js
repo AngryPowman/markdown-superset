@@ -1332,34 +1332,6 @@ var MarkdownSuperset;
 })(MarkdownSuperset || (MarkdownSuperset = {}));
 var MarkdownSuperset;
 (function (MarkdownSuperset) {
-    var MarkdownEditor = (function () {
-        function MarkdownEditor() {
-        }
-        MarkdownEditor.prototype.initEditor = function (dom) {
-            if (dom === void 0) { dom = "editor"; }
-            this.aceEditor = ace.edit(dom);
-            this.aceEditor.setTheme("ace/theme/chrome");
-            this.aceEditor.getSession().setMode("ace/mode/markdown");
-            this.aceEditor.setReadOnly(false);
-            this.aceEditor.session.setUseWrapMode(false);
-            this.aceEditor.setScrollSpeed(1);
-            this.aceEditor.setFontSize("16px");
-            this.aceEditor.getSession().on('change', function (e) {
-            });
-        };
-        MarkdownEditor.prototype.setValue = function (val, cursorPos) {
-            this.aceEditor.setValue(val, cursorPos);
-        };
-        MarkdownEditor.prototype.getValue = function () {
-            return this.aceEditor.getValue();
-        };
-        return MarkdownEditor;
-    }());
-    MarkdownSuperset.MarkdownEditor = MarkdownEditor;
-    MarkdownSuperset.Editor = MarkdownEditor;
-})(MarkdownSuperset || (MarkdownSuperset = {}));
-var MarkdownSuperset;
-(function (MarkdownSuperset) {
     var MarkdownLexing = (function () {
         function MarkdownLexing() {
         }
