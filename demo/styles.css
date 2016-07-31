@@ -1,6 +1,6 @@
 
 body {
-  /*margin: 0;*/
+  margin: 0;
   overflow: hidden;
 }
 
@@ -25,9 +25,5 @@ body {
   border: solid chocolate;
   overflow-y: scroll;
   padding-left: 6px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.ace_editor {
-  /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;*/
+  font-family: -apple-system,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
 }

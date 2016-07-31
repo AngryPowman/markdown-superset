@@ -30,6 +30,7 @@
     "gulp-shell": "^0.5.2",
     "gulp-sync": "^0.1.4",
     "gulp-uglify": "^1.5.3",
-    "gulp-util": "^3.0.7"
+    "gulp-util": "^3.0.7",
+    "run-sequence": "^1.2.2"
   }
 }

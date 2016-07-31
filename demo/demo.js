@@ -22,10 +22,6 @@ function throttle(fn, threshhold, scope) {
 }
 
 $(document).ready(function () {
-  console.log("ready!");
-  // var editor = new MarkdownSuperset.Editor();
-  // editor.initEditor();
-
   var editor = ace.edit("editor");
   document.getElementById('editor').style.fontSize = '14px';
 
@@ -39,6 +35,7 @@ $(document).ready(function () {
     new MarkdownSuperset.PluginDiagram(),
     new MarkdownSuperset.PluginFormula()
   ]);
+
 
   var renderer = new MarkdownSuperset.Renderer();
 
