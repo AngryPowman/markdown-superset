@@ -113,20 +113,20 @@ module MarkdownSuperset {
           // If not specified highlighting language
           if (!language) {
             return [
-              '<pre class="hljs"><code>',
+              '<pre><code class="hljs">',
               (escaped ? code : this.escape(code, true)),
               '\n</code></pre>\n'].join("");
           }
 
           return [
-            '<pre class="hljs"><code class="',
+            '<pre><code class="hljs ',
             this.renderer.options.langPrefix, this.escape(language, true),
             '">',
             (escaped ? code : this.escape(code, true)),
             '\n</code></pre>\n'].join("");
 
         } else {
-          return ['<pre class="hljs"><code>', code, '</code></pre>\n'].join("");
+          return ['<pre><code class="hljs">', code, '</code></pre>\n'].join("");
         }
       };
 
