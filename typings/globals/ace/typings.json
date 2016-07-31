@@ -1,8 +1,0 @@
-{
-  "resolution": "main",
-  "tree": {
-    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/0db00fd21d51529513664b8e3c7299b402719c12/ace/ace.d.ts",
-    "raw": "registry:dt/ace#0.0.0+20160630235124",
-    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/0db00fd21d51529513664b8e3c7299b402719c12/ace/ace.d.ts"
-  }
-}

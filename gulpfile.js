@@ -33,8 +33,8 @@ gulp.task('uglify', ['compile'], function () {
       booleans: true,
       unused: true,
       if_return: true,
-      join_vars: false,
-      warnings: false,
+      join_vars: true,
+      warnings: true,
       unsafe: false,
       drop_console: true
     }
