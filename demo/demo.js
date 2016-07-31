@@ -27,7 +27,8 @@ $(document).ready(function () {
   editor.initEditor();
 
   MarkdownSuperset.MarkdownPluginManager.initPlugins([
-    new MarkdownSuperset.PluginDiagram()
+    new MarkdownSuperset.PluginDiagram(),
+    new MarkdownSuperset.PluginFormula()
   ]);
 
   var renderer = new MarkdownSuperset.Renderer();

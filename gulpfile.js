@@ -50,6 +50,7 @@ gulp.task('uglify', ['compile'], function () {
       [
         'node_modules/marked/lib/marked.js',
         'node_modules/mermaid/dist/mermaid.min.js',
+        'node_modules/katex/dist/katex.min.js',
         output_path + '/libs/highlight.js/highlight.pack.js',
         output_path + '/all.js',
         output_path + '/index.js'

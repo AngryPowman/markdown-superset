@@ -61,6 +61,15 @@ module MarkdownSuperset {
       return markdownRendered;
     }
 
+    // Re-render after low level renderer methods
+    public static renderHookProcess(type: string, result: string, args: any[]) {
+      this.plugins.forEach(plugin => {
+        result = plugin.renderHook(type, result, args);
+      });
+
+      return result;
+    }
+
     public static isPluginExists<T extends MarkdownExtraPlugin>(plugin: T): boolean {
       return this.plugins.every(element => {
         if (typeof element === typeof plugin) {

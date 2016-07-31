@@ -4,3 +4,4 @@
 /// <reference path="globals/marked/index.d.ts" />
 /// <reference path="libs/marked.ext.d.ts" />
 /// <reference path="libs/mermaid.d.ts" />
+/// <reference path="libs/katex.d.ts" />

@@ -1,5 +1,3 @@
-/// <reference path="../exports.ts" />
-
 module MarkdownSuperset {
   export class PluginDiagram implements MarkdownExtraPlugin {
     public initialize(): void {
@@ -11,6 +9,8 @@ module MarkdownSuperset {
         sequenceDiagram: {
           useMaxWidth: false,
           bottomMarginAdj: 50
+        },
+        gantt: {
         }
       });
     }
@@ -24,10 +24,13 @@ module MarkdownSuperset {
       mermaid.init({}, ".mermaid");
     }
 
-    // ========================================================
-    public codeRender(code: string): string {
-      console.log("Parsing diagram token in code block ...");
-      return '<div class="mermaid">' + code + '</div>';
+    public renderHook(type: string, result: string, args: any[]): string {
+      if (type === "code") {  // Args: $0-code, $1-language
+        console.log("Parsing diagram token in code block ...");
+        return '<div class="mermaid">' + result + '</div>';
+      }
+
+      return result;
     }
 
     public tryParse(code: string): boolean {

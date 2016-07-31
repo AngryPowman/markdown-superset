@@ -1,6 +1,7 @@
 module MarkdownSuperset {
   let ExtraPlugins: any = {
-    Diagram: undefined
+    Diagram: undefined,
+    Formula: undefined
   };
 
   export const Plugins = ExtraPlugins;

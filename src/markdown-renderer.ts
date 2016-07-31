@@ -13,6 +13,7 @@ module MarkdownSuperset {
 
   export class MarkdownRenderer {
     private renderer: MarkedRenderer;
+    private sourceLineCount: number = 0;
 
     constructor() {
       this.renderer = new marked.Renderer();
@@ -33,6 +34,7 @@ module MarkdownSuperset {
       });
       MarkdownPluginManager.initializePlugins();
 
+      MarkdownLexing.initilize();
       this.overridingRenderer();
       this.initParser();
     }
@@ -87,16 +89,17 @@ module MarkdownSuperset {
     private initParser(): void {
 
       // Code parser hooks
-      // let codeFunc: (code: string, language: string, escaped: boolean) => string = this.renderer.code;
       this.renderer.code = (code: string, language: string, escaped: boolean) => {
-        // return codeFunc.apply(this.renderer, [code, language]);
-
         if (!language) {
           // If code is diagram, render it without highlighter
           let diagramPlugin: PluginDiagram = new PluginDiagram();
           if (diagramPlugin.tryParse(code) && MarkdownPluginManager.isPluginExists(diagramPlugin)) {
-            return diagramPlugin.codeRender(code);
+            return diagramPlugin.renderHook("code", code, [code, language]);
           }
+        }
+
+        if (language === "math") {
+          return new PluginFormula().renderHook("code", code, [code, language]);;
         }
 
         // If enabled code highlighting
@@ -127,6 +130,48 @@ module MarkdownSuperset {
         }
       };
 
+
+      let renderHooks: Array<any> = [
+        // "code",  /* Implement alone*/
+        "blockquote",
+        "html",
+        "heading",
+        "hr",
+        "list",
+        "listitem",
+        "paragraph",
+        "table",
+        "tablerow",
+        "tablecell",
+        "strong",
+        "em",
+        "codespan",
+        "br",
+        "del",
+        "link",
+        "image",
+        "text"
+      ];
+
+      renderHooks.forEach(functionName => {
+        let hookFunc: any = this.renderer[functionName];
+        this.renderer[functionName] = (...args) => {
+          let result: string = hookFunc.apply(this.renderer, args);
+          // let sourceLine = args[args.length - 1];
+
+          // // Insert source-line
+          // if (sourceLine && Number(sourceLine) > 0) {
+          //   let element = $(result);
+          //   if (element.length > 0) {
+          //     element[0].setAttribute("source-line", sourceLine);
+          //     result = element.wrapAll('<div>').parent().html();
+          //   }
+          // }
+
+          return MarkdownPluginManager.renderHookProcess(functionName, result, args);
+        };
+      }, this);
+
       // Lexer hooks
       marked.prototype.constructor.Parser.prototype.parse = function (src) {
         this.inline = new marked.InlineLexer(src.links, this.options);
@@ -140,7 +185,7 @@ module MarkdownSuperset {
         }
 
         // Render by plugins
-        return MarkdownPluginManager.renderProcess(out);
+        return out;
       };
     }
 

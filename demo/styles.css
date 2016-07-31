@@ -1,3 +1,9 @@
+
+body {
+  /*margin: 0;*/
+  overflow: hidden;
+}
+
 .container {
   height: 100%;
   width: 100%;
@@ -17,9 +23,9 @@
   width: 50%;
   border-width: 8px;
   border: solid chocolate;
-  overflow: scroll;
+  overflow-y: scroll;
   padding-left: 6px;
-  font-family: sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .ace_editor {
