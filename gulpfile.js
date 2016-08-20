@@ -16,7 +16,7 @@ var release_path = './dist';
 var output_path = './output';
 
 gulp.task('build', function () {
-  runSequence('build-before-clean', 'compile', ['uglify', 'output-css'], 'copy-to-demo', 'build-after-clean');
+  runSequence('build-before-clean', 'compile', ['uglify', 'output-css'], /*'copy-to-demo',*/ 'build-after-clean');
 });
 
 gulp.task('build-before-clean', function () {
