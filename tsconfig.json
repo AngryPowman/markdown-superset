@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "es5",
     "module": "amd",
-    "outDir": "./output",
-    "outFile": "./output/all.js",
+    "outDir": "./dist",
+    "outFile": "./dist/markdown-superset.js",
     "moduleResolution": "node",
     "sourceMap": false,
     "emitDecoratorMetadata": true,
@@ -13,7 +13,6 @@
     "noEmitHelpers": true,
     "declaration": true,
     "pretty": true
-    // "declarationDir": "./output/typings"
   },
   "exclude": [
     "demo",
