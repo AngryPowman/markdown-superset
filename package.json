@@ -1,6 +1,6 @@
 {
   "name": "markdown-superset",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "scripts": {
     "start": "open http://localhost:36911/demo/demo.html; python -m SimpleHTTPServer 36911"

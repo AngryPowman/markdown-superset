@@ -26,15 +26,15 @@ $ gulp build
 
 Reference the script in your index.html:
 ```
-<script src="markdown-superset/dist/markdown-superset.min.js"></script>
+<script src="node_modules/markdown-superset/dist/markdown-superset.min.js"></script>
 ```
 
 ## Demo
 To run the demo:
-$ cd markdown-superset
+$ cd node_modules/markdown-superset
 $ npm start
 
 * Notice: You may install `python` first.
 
 ## Declaration File for TypeScript
-Comming soon
+`/// <reference path="node_modules/markdown-superset/dist/markdown-superset.d.ts" />`
