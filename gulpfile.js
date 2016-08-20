@@ -20,13 +20,11 @@ gulp.task('build', function() {
 });
 
 gulp.task('build-before-clean', function() {
-  del(release_path + '/*');
-  del(output_path + '/*');
-  return del('./demo/libs/markdown-superset/*');
+  return del(release_path + '/*');
 });
 
 gulp.task('build-after-clean', function() {
-  return del(output_path);
+
 });
 
 var styleDest = release_path + '/styles'
@@ -38,9 +36,9 @@ gulp.task('output', shell.task(
     'test -d ' + highlightDest + ' || mkdir -p ' + highlightDest,
     'test -d ' + styleDest + '/mermaid || mkdir -p ' + styleDest + '/mermaid',
     'test -d ' + styleDest + '/katex || mkdir -p ' + styleDest + '/katex',
-    
+
     // Copy
-    'cp -R ' + output_path + '/libs/highlight.js/styles/ ' + highlightDest,
+    'cp -R ' + 'src/libs/highlight.js/styles/ ' + highlightDest,
     'cp -R ' + 'node_modules/mermaid/dist/mermaid.css ' + styleDest + '/mermaid',
     'cp -R ' + 'node_modules/mermaid/dist/mermaid.dark.css ' + styleDest + '/mermaid',
     'cp -R ' + 'node_modules/mermaid/dist/mermaid.forest.css ' + styleDest + '/mermaid',
@@ -53,7 +51,7 @@ gulp.task('output', shell.task(
 
 gulp.task('compile', shell.task([
   'tsc --p ./tsconfig.json',
-  'cp -R ./src/libs ' + output_path + '/',
+  // 'cp -R ./src/libs ' + output_path + '/',
 ], { verbose: true, timeout: 100000 }));
 
 gulp.task('uglify', function() {
@@ -79,9 +77,9 @@ gulp.task('uglify', function() {
         'node_modules/marked/lib/marked.js',
         'node_modules/mermaid/dist/mermaid.min.js',
         'node_modules/katex/dist/katex.min.js',
-        output_path + '/libs/highlight.js/highlight.pack.js',
+        'src/libs/highlight.js/highlight.pack.js',
         release_path + '/markdown-superset.js',
-        output_path + '/index.js'
+        release_path + '/index.js'
       ])
     // .pipe(babel({
     //   presets: ['es2015']
