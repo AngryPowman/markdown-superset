@@ -1,14 +1,13 @@
 ## Overview
 A markdown extension library for supporting more advanced features through plugins way.
 
-## Project status
-**This package is now in the early development stage, not preview or production yet.**
-
 ----
 
 ## Dependencies
-- pagedown
-- ace-editor
+- marked
+- highlight.js
+- mermaid
+- katex
 
 ## Installation
 Install via [npm](https://www.npmjs.com/package/github) ![NPM version](https://badge.fury.io/js/github.svg):
@@ -29,6 +28,13 @@ Reference the script in your index.html:
 ```
 <script src="markdown-superset/dist/markdown-superset.min.js"></script>
 ```
+
+## Demo
+To run the demo:
+$ cd markdown-superset
+$ npm start
+
+* Notice: You may install `python` first.
 
 ## Declaration File for TypeScript
 Comming soon

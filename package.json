@@ -3,7 +3,7 @@
   "version": "1.0.4",
   "description": "",
   "scripts": {
-    "start": "cd ./demo && npm start"
+    "start": "open http://localhost:36911/demo/demo.html; python -m SimpleHTTPServer 36911"
   },
   "repository": {
     "type": "git",
